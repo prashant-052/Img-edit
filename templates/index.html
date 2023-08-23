@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Online Image Editor</title>
+  <link href="/static/css/output.css" rel="stylesheet">
+
+</head>
+
+<body>
+  <nav class="h-12 md:h-24 flex justify-between bg-[rgb(101,166,145)] gap-x-12 items-center">
+    <div class="hamburger inline-block p-4 cursor-pointer md:hidden">
+      <div class="line h-0.5 w-4 my-1 bg-black"></div>
+      <div class="line h-0.5 w-5 my-1 bg-black"></div>
+      <div class="line h-0.5 w-6 my-1 bg-black"></div>
+    </div>
+    <div class="flex   h-10 w-20 justify-center" >
+    <img src="{{url_for('static',filename='IMG-EDIT.PNG')}}" />
+  </div>
+    <div class=" collapse md:block">
+      <ul class="flex gap-x-12 items-center ">
+        <li>
+          <a aria-current="page" href="#">About</a>
+        </li>
+
+        <li class="flex-1">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Pricing
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Silver member</a></li>
+            <li><a class="dropdown-item" href="#">Gold member</a></li>
+
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contact Us</a>
+        </li>
+
+    </div>
+
+  </nav>
+  <h1 class="font-roboto text-center text-base font-bold my-3 ">ONLINE IMAGE EDITOR-EDIT YOUR IMAGE ONLINE</h1>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+
+  {% for category, message in messages %}
+
+
+  <div class="alert alert-success alert-dismissible fade show text-center mt-3 text-[rgba(29,9,250,0.97)]" role="alert">
+    <strong>Success!</strong> {{ message|safe }}
+
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endfor %}
+
+  {% endif %}
+  {% endwith %}
+  
+  <div class="flex justify-center">
+  <div class="inputbox flex flex-row justify-center text-center py-3 max-w-xl ">
+    <form action="/edit" method="post" enctype="multipart/form-data">
+      <div
+        class="mb-3  relative mx-8 justify-center h-44  transition bg-white border-2 border-[rgb(101,166,145)] border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none">
+        <label for="formFile" class="form-label font-extralight font-serif ">Select your image to Edit
+          <span class="flex items-center space-x-2"></span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-6 text-[rgb(101,166,145)]" fill="none"
+            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+          </svg>
+          <span class="font-medium text-gray-600">
+            Drop files to Attach
+          
+          </span>
+          <input type="file" class="block w-full text-center text-sm text-slate-500
+          file:mr-4 file:py-2 file:px-4 file:mt-6 file:mx-10
+          file:rounded-full file:border-0
+          file:text-sm file:font-semibold
+          file:bg-violet-50 file:text-[rgb(101,166,145)]
+          hover:file:bg-green-100" name="file" id="formFile">
+
+        </label>
+      </div>
+
+
+      <div class="form  mt-4 mx-20 justify-center border-2 border-solid appearance-none rounded-md">
+        <select name="operation"
+          class="form-select mt-5 text-center  bg-white  focus:ring-[rgb(101,166,145)] focus:border-[rgb(101,166,145)]"
+          id="floatingSelect" aria-label="Floating label select example">
+          
+          <option  selected>Choose an operation</option>
+          <option  value="cpng">CONVERT TO PNG</option>
+          <option  value="cjpg">CONVERT TO JPG</option>
+          <option  value="cpeg">CONVERT TO JPEG</option>
+          <option  value="crem">REMOVE BACKGROUND</option>
+        </select>
+        <label for="floatingSelect"
+        class=" flex font-semibold -translate-y-14 justify-center bg-white text-[rgb(101,166,145)] ">Select
+        an Editing Operation
+      </label>
+       
+      </div>
+      
+      <button type="submit"
+        
+      class="btn btn-success mt-2 font-semibold rounded-lg focus:outline-none text-black bg-[rgb(101,166,145)] hover:bg-[rgb(101,166,145)] hover:text-[#F5F5F5]  text-sm px-5 py-2.5 mr-2 mb-2 ">Submit
+  
+    </button>
+
+    </form>
+  </div>
+</div>
+</body>
+
+
+</html>
