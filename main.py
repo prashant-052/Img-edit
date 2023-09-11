@@ -1,4 +1,4 @@
-from flask import Flask, render_template,request, flash,session
+from flask import Flask, render_template,request, flash
 from werkzeug.utils import secure_filename
 from rembg import remove
 import numpy as np
@@ -75,7 +75,6 @@ def edit():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             new=processImage(filename, operation)
             flash(f" <a href='/{new}' target = _blank>Your image has been processed and is available here</a>")
-            session.pop('_flashes', None)
             return render_template("index.html")
        
     return render_template("index.html")
