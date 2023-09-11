@@ -1,4 +1,4 @@
-from flask import Flask, render_template,request, flash
+from flask import Flask, render_template,request, flash,session
 from werkzeug.utils import secure_filename
 from rembg import remove
 import numpy as np
@@ -63,18 +63,19 @@ def edit():
         # check if the post request has the file part
         if 'file' not in request.files:
             flash('No file part')
-            return "error no file"
+            return "Error-No file"
         file = request.files['file']
         # If the user does not select a file, the browser submits an
         # empty file without a filename.
         if file.filename == '':
             flash('No selected file')
-            return "no file"
+            return "Please enter your file"
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             new=processImage(filename, operation)
             flash(f" <a href='/{new}' target = _blank>Your image has been processed and is available here</a>")
+            session.pop('_flashes', None)
             return render_template("index.html")
        
     return render_template("index.html")
